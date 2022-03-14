@@ -1,0 +1,33 @@
+<div class=" content">
+    <h1>Reservation</h1>
+    <div class="container">
+      <div class="card m-5 p-3">
+          <div class="card-body">
+              <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                  <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>client</th>
+                      <th>Chambre</th>
+                      <th>date de Reservation</th>
+                      <th>debut du sejour</th>
+                      <th>fin du sejour</th>
+                      <th>Nombre de personne</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let reservation of Reservations">
+                      <td>{{reservation.id}}</td>
+                      <td>{{reservation.client}}</td>
+                      <td>{{reservation.room.number}}</td>
+                      <td>{{reservation.dateReservation}}</td>
+                      <td>{{reservation.dateDebut}}</td>
+                      <td>{{reservation.dateFin}}</td>
+                      <td>{{reservation.nbrPerson}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>
+  
+      </div>
+  </div>
