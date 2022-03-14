@@ -9,15 +9,40 @@
 
 <div class="sidebar-wrapper">
   <ul class="nav">
-    <li
-      routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }} nav-item"
-    >
-      <a [routerLink]="[menuItem.path]">
-        <i class="tim-icons  {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
-      </a>
-    </li>
+    <div *ngFor="let menuItem of menuItems">
+      <li routerLinkActive="active" class="nav-item">
+        <a
+          data-bs-toggle="collapse"
+          routerLinkActive="active"
+          aria-expanded="false"
+          class="collapsed"
+          href="#{{ menuItem.Id_Menu }}"
+        >
+          <i class="small tim-icons {{ menuItem.icon }}"></i>
+          <p>
+            {{ menuItem.title }}
+            <b class="caret mt-0"></b>
+          </p>
+        </a>
+      </li>
+
+      <!-- sous menu -->
+      <div class="collapse" id="{{ menuItem.Id_Menu }}">
+        <!-- boucle miaraka @table -->
+        <ul class="nav mt-0">
+          <!-- boucle mitety ny sous menu objet sousMenu -->
+          <li
+            routerlinkactive="active"
+            *ngFor="let sousmenu of menuItem.sousMenu"
+          >
+            <a [routerLink]="[sousmenu.path]"
+              ><i class="tim-icons icon-simple-delete" style="opacity: 0"></i>
+              <span class="sidebar-normal"> {{ sousmenu.title }} </span></a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- sous menu -->
+    </div>
   </ul>
 </div>

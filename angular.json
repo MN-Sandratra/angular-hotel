@@ -36,7 +36,7 @@
               "src/assets/css/nucleo-icons.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {

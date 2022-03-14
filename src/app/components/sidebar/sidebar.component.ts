@@ -1,23 +1,104 @@
 import { Component, OnInit } from '@angular/core';
 
 declare interface RouteInfo {
-  path: string;
+  Id_Menu: string;
   title: string;
   icon: string;
+  sousMenu: any;
   class: string;
 }
 
 export const ROUTES: RouteInfo[] = [
   {
-    path: '/user',
-    title: 'User Profile',
-    icon: 'icon-single-02',
+    Id_Menu: 'stock',
+    title: 'Gestion de stock',
+    icon: 'icon-components',
+    sousMenu: [
+      {
+        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
+        path: '',
+        title: 'Stock sous menu 1',
+      },
+      {
+        path: '',
+        title: 'Stock sous menu 2',
+      },
+      {
+        path: '',
+        title: 'Stock sous menu 3',
+      },
+      {
+        path: '',
+        title: 'Stock sous menu 4',
+      },
+      {
+        path: '',
+        title: 'Stock sous menu 5',
+      },
+    ],
     class: '',
   },
   {
-    path: '/tables',
-    title: 'Table List',
-    icon: 'icon-puzzle-10',
+    Id_Menu: 'logistique',
+    title: 'Logistique',
+    icon: 'icon-paper',
+    sousMenu: [
+      {
+        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
+        path: '',
+        title: 'Logistique sous menu 1',
+      },
+      {
+        path: '',
+        title: 'Logistique sous menu 2',
+      },
+      {
+        path: '',
+        title: 'Logistique sous menu 3',
+      },
+    ],
+    class: '',
+  },
+  {
+    Id_Menu: 'rh',
+    title: 'RH',
+    icon: 'icon-badge',
+    sousMenu: [
+      {
+        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
+        path: '',
+        title: 'RH sous menu 1',
+      },
+      {
+        path: '',
+        title: 'RH sous menu 2',
+      },
+      {
+        path: '',
+        title: 'RH sous menu 3',
+      },
+    ],
+    class: '',
+  },
+  {
+    Id_Menu: 'comptable',
+    title: 'Comptable',
+    icon: 'icon-money-coins',
+    sousMenu: [
+      {
+        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
+        path: '',
+        title: 'Comptable sous menu 1',
+      },
+      {
+        path: '',
+        title: 'Comptable sous menu 2',
+      },
+      {
+        path: '',
+        title: 'Comptable sous menu 3',
+      },
+    ],
     class: '',
   },
 ];
