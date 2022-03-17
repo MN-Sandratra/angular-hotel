@@ -87,16 +87,16 @@ export const ROUTES: RouteInfo[] = [
     sousMenu: [
       {
         //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
-        path: '',
-        title: 'Comptable sous menu 1',
+        path: 'compte',
+        title: 'Compte',
       },
       {
-        path: '',
-        title: 'Comptable sous menu 2',
+        path: 'mouvement',
+        title: 'Mouvement',
       },
       {
-        path: '',
-        title: 'Comptable sous menu 3',
+        path: 'journal',
+        title: 'Journal',
       },
     ],
     class: '',
@@ -109,10 +109,8 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
-  constructor() {
-    this.menuItems = [];
-  }
+  menuItems!: any[];
+  constructor() {}
 
   ngOnInit(): void {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);

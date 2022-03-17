@@ -1,0 +1,114 @@
+<div class="content">
+  <div class="row">
+    <div class="col-md-8 ml-auto mr-auto">
+      <h2 class="text-center">Administration Compte</h2>
+    </div>
+  </div>
+
+  <!--début compte -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Liste des comptes</h3>
+          <p class="text-sm mb-0">
+            Ici vous pouvez ajouter, modifier et supprimer un compte sélectioné.
+          </p>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Numéro</th>
+                  <th>Intitulé</th>
+                  <th>Id Classe</th>
+                  <th>Id Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let compte of allCompte | async">
+                  <td>{{ compte.id }}</td>
+                  <td>{{ compte.numeroCompte }}</td>
+                  <td>{{ compte.intituleCompte }}</td>
+                  <td>{{ compte.classecompteId }}</td>
+                  <td>{{ compte.typecompteId }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--fin compte -->
+
+  <div class="row">
+    <!--début classe compte -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Liste des classes comptes</h3>
+          <p class="text-sm mb-0">
+            Ici vous pouvez ajouter, modifier et supprimer une classe compte
+            sélectioné.
+          </p>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Classe Nom</th>
+                  <th>Classe Numéro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let classecompte of allClasseCompte | async">
+                  <td>{{ classecompte.id }}</td>
+                  <td>{{ classecompte.nomClasse }}</td>
+                  <td>{{ classecompte.numeroClasse }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin classe compte -->
+
+    <!--début type compte -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Liste des types comptes</h3>
+          <p class="text-sm mb-0">
+            Ici vous pouvez ajouter, modifier et supprimer un type compte
+            sélectioné.
+          </p>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Type Compte</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let typecompte of allTypeCompte | async">
+                  <td>{{ typecompte.id }}</td>
+                  <td>{{ typecompte.nomTypeCompte }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin type compte -->
+  </div>
+</div>
