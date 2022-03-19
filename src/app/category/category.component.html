@@ -1,4 +1,3 @@
-<h1>category</h1>
 <!-- Modal -->
 <div class="modal fade" id="CategorieModal" tabindex="-1" aria-labelledby="ModalClient" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -36,12 +35,12 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <span [ngSwitch]="currentAction">
-          <p *ngSwitchCase="'Modifier'">
+          <span *ngSwitchCase="'Modifier'">
             <button type="button" class="btn btn-primary" (click)="updateCategory()" data-bs-dismiss="modal">Modifier</button>
-          </p>
-          <p *ngSwitchCase="'Ajouter'">
+          </span>
+          <span *ngSwitchCase="'Ajouter'">
             <button type="button" class="btn btn-primary" (click)="addCategory()" data-bs-dismiss="modal">Ajouter</button>
-          </p>
+          </span>
           <p *ngSwitchDefault>
           </p>
         </span>
@@ -71,12 +70,16 @@
 </div>
 
 <div class="container">
-  <div class="card m-5 p-3">
+  <div class="tableau">
+    <div class="t-header">
+      <h1>Category</h1>
+    </div>
     <div class="card-body">
       <div class="action">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CategorieModal" (click)="ajouterCategory()">
+        <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#CategorieModal" (click)="ajouterCategory()">
           Ajouter
         </button>
+      </div>
       <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
         [dtTrigger]="dtTrigger">
         <thead>

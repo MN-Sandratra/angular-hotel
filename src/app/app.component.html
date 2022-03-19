@@ -1,4 +1,26 @@
-<app-client></app-client>
-<app-category></app-category>
-<app-room></app-room>
-<app-reservation></app-reservation>
+<div class="wrapper">
+  <div class="sidebar" data="primary">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel">
+    <app-navbar></app-navbar>
+    <!-- Contenu ilay eo am-povony ngeza be io tiko atao <router-outlet></router-outlet> fa tsy 
+    avangongo be ato -->
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-0">
+            <div class="card-body all-icons">
+              <div class="row">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Eto farany io contenu io -->
+
+    <app-footer></app-footer>
+  </div>
+</div>

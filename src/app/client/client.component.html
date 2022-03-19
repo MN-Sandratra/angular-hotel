@@ -1,11 +1,10 @@
-<div class=" content">
-
+<div>
   <!-- Modal -->
   <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="ModalClient" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} Client</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} un Client</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -44,19 +43,18 @@
         </div>
         <div class="modal-footer">
           <span>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           </span>
           <span [ngSwitch]="currentAction">
-            <p *ngSwitchCase="'Modifier'">
+            <span *ngSwitchCase="'Modifier'">
               <button type="button" class="btn btn-primary" (click)="updateClient()" data-bs-dismiss="modal">Modifier</button>
-            </p>
-            <p *ngSwitchCase="'Ajouter'">
+            </span>
+            <span *ngSwitchCase="'Ajouter'">
               <button type="button" class="btn btn-primary" (click)="addClient()" data-dismiss="modal">Ajouter</button>
-            </p>
+            </span>
             <p *ngSwitchDefault>
             </p>
-          </span>
-          
+          </span>  
         </div>
       </div>
     </div>
@@ -80,21 +78,21 @@
       </div>
     </div>
   </div>
-
-  <h1>Client</h1>
   <div class="container">
-    <div class="card m-5 p-3">
+    <div class="tableau">
+      <div class="t-header">
+        <h1>Client</h1>
+      </div>
       <div class="card-body">
         <div class="action">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="ajoutClient()">
-            Ajouter
+          <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="ajoutClient()">
+            <fa-icon [icon]="FaAdd"></fa-icon> Ajouter
           </button>
         </div>
         <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
           [dtTrigger]="dtTrigger">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Nom</th>
               <th>Prenom</th>
               <th>CIN</th>
@@ -104,17 +102,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let client of Clients">
-              <td>{{client.id}}</td>
               <td>{{client.person.firstName}}</td>
               <td>{{client.person.lastName}}</td>
               <td>{{client.person.cin}}</td>
               <td>{{client.person.phone}}</td>
               <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="modifierClient(client)">
-                  Modifier
+                <fa-icon [icon]="FaModif"></fa-icon>
                 </button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClient">
-                  Supprimer
+                <fa-icon [icon]="FaDel"></fa-icon>
                 </button>
               </td>
             </tr>

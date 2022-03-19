@@ -5,6 +5,7 @@ import { Client } from '../models/client';
 import { Person } from '../models/person';
 import { DataTableDirective } from 'angular-datatables';
 import {ToastrService} from 'ngx-toastr';
+import {faPencil,faAdd,faTrash} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-client',
@@ -13,6 +14,9 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class ClientComponent implements OnInit,OnDestroy {
 
+  FaModif=faPencil;
+  FaAdd=faAdd;
+  FaDel=faTrash;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   dtElement:DataTableDirective | undefined;
