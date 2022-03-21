@@ -12,8 +12,11 @@
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
-                  <label> Nom </label>
-                  <input class=" form-control" placeholder="Nom" type="text" [(ngModel)]="currentClient.person.firstName" name="firstName"/>
+                  <label for="#nom"> Nom </label>
+                  <input class=" form-control" placeholder="Nom" type="text" 
+                  id="nom" #nom="ngModel" required minlength="2"
+                  [(ngModel)]="currentClient.person.firstName" name="firstName"/>
+                  <small class="text-danger" [class.d-none]="nom.valid||nom.untouched"> Un nom doit contenir au moins 3 caracteres</small>
                 </div>
               </div>
               <div class=" col-md-6 pl-md-1">
@@ -50,7 +53,7 @@
               <button type="button" class="btn btn-primary" (click)="updateClient()" data-bs-dismiss="modal">Modifier</button>
             </span>
             <span *ngSwitchCase="'Ajouter'">
-              <button type="button" class="btn btn-primary" (click)="addClient()" data-dismiss="modal">Ajouter</button>
+              <button type="button" class="btn btn-primary" (click)="addClient()" data-bs-dismiss="modal">Ajouter</button>
             </span>
             <p *ngSwitchDefault>
             </p>
@@ -69,11 +72,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Voulez vous vraiment supprimer le client
+          Voulez vous vraiment supprimer le client <b>"{{currentClient.person.firstName}} {{currentClient.person.lastName}}"</b>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary">Supprimer</button>
+          <button type="button" class="btn btn-primary" (click)="deleteClient()" data-bs-dismiss="modal">Supprimer</button>
         </div>
       </div>
     </div>
@@ -92,7 +95,7 @@
         <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
           [dtTrigger]="dtTrigger">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th>Nom</th>
               <th>Prenom</th>
               <th>CIN</th>
@@ -101,16 +104,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let client of Clients">
+            <tr *ngFor="let client of Clients" class="text-center">
               <td>{{client.person.firstName}}</td>
               <td>{{client.person.lastName}}</td>
               <td>{{client.person.cin}}</td>
               <td>{{client.person.phone}}</td>
-              <td>
+              <td class="td-action text-center">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="modifierClient(client)">
                 <fa-icon [icon]="FaModif"></fa-icon>
                 </button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClient">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClient" (click)="supprimerClient(client)">
                 <fa-icon [icon]="FaDel"></fa-icon>
                 </button>
               </td>

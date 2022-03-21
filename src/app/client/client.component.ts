@@ -90,8 +90,7 @@ export class ClientComponent implements OnInit,OnDestroy {
       data=>{
         this.currentClient=data;
       },err=>{
-        console.error("Une erreur s'est produite");
-        
+        console.error("Une erreur s'est produite");       
       }
     )
   }
@@ -102,6 +101,7 @@ export class ClientComponent implements OnInit,OnDestroy {
     })
   }
 
+  //bouton
   modifierClient(client:any){
     this.currentAction="Modifier";
     this.getClientById(client.id);
@@ -111,14 +111,17 @@ export class ClientComponent implements OnInit,OnDestroy {
     this.currentClient=new Client();
     this.initialistaion();
   }
+  supprimerClient(client:any){
+    this.getClientById(client.id);
+  }
 
   //action with api
   updateClient=():void=>{
     this.apiClient.updateClient(this.currentClient).subscribe(
       data=>{
         this.getClient();
+        this.toastr.success("Modification du client reussit","Succes");
         this.rerender();
-        this.toastr.success("Modification du client reussit","Succes")
       },
       error=>{
         console.error(error);
@@ -130,10 +133,22 @@ export class ClientComponent implements OnInit,OnDestroy {
     this.apiClient.createClient(this.currentClient).subscribe(
       data=>{
         this.getClient();
-        this.toastr.success(""+data,"Succes");
         this.rerender();
+        this.toastr.success(""+data,"Succes");
       },err=>{
         console.error(err);
+      }
+    )
+  }
+  
+  deleteClient(){
+    this.apiClient.deleteClient(this.currentClient.id).subscribe(
+      data=>{
+        this.getClient();
+        this.rerender();
+        this.toastr.info(""+data,"Sucess");
+      },err=>{
+        console.log(err);
       }
     )
   }

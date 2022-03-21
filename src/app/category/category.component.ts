@@ -3,6 +3,8 @@ import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { data } from 'jquery';
+import { faAdd, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-category',
@@ -10,6 +12,10 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit,OnDestroy {
+  //font awesome
+  FaModif=faPencil;
+  FaAdd=faAdd;
+  FaDel=faTrash;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -95,6 +101,11 @@ export class CategoryComponent implements OnInit,OnDestroy {
     this.currentAction="Ajouter"
     this.currentCategory=new Category();
   }
+  supprimerCategory(category:Category){
+    this.getCategoryById(category.id);
+  }
+
+
   updateCategory=():void=>{
     this.apiCateory.updateCategory(this.currentCategory).subscribe(
       data=>{
@@ -112,6 +123,19 @@ export class CategoryComponent implements OnInit,OnDestroy {
       data=>{
         this.getAllCategory();
         this.rerender();
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
+
+  deleteCategory(){
+    this.apiCateory.deleteCategory(this.currentCategory.id).subscribe(
+      data=>{
+        this.getAllCategory();
+        this.rerender();
+      },err=>{
+        console.log(err);
       }
     )
   }

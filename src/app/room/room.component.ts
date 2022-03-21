@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faAdd, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { Category } from '../models/category';
@@ -12,6 +13,9 @@ import { RoomService } from '../services/room.service';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
+  FaModif=faPencil;
+  FaAdd=faAdd;
+  FaDel=faTrash;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -87,6 +91,7 @@ export class RoomComponent implements OnInit {
   getRoomById(id:number){
     this.apiRoom.getRoomById(id).subscribe(
       data=>{
+        console.log(data);
         this.currentRoom=data;
       },err=>{
         console.error("Une erreur s'est produite");
@@ -103,20 +108,25 @@ export class RoomComponent implements OnInit {
 
   modifierRoom(room:any){
     this.currentAction="Modifier";
-    this.getRoomById(room.number);
+    console.log(room.id);
+    this.getRoomById(room.id);
   }
   ajoutRoom=():void=>{
     this.currentAction="Ajouter";
     this.currentRoom=new Room();
     this.currentRoom.category=new Category();
   }
+  deleteRoom=(room:any):void=>{
+    this.getRoomById(room.id);
+  }
 
   addRoom=()=>{
     let room={
       "number":this.currentRoom.number,
       "type":this.currentRoom.type,
-      "categoryId":this.currentRoom.categoryId
+      "categoryId":this.currentRoom.category.id
     };
+    console.log(room);
     this.apiRoom.createRoom(room).subscribe(
       data=>{
         this.getRooms();
@@ -128,6 +138,7 @@ export class RoomComponent implements OnInit {
   }
   updateRoom=():void=>{
     this.currentRoom.categoryId=this.currentRoom.category.id;
+    console.log(this.currentRoom.id);
     this.apiRoom.updateRoom(this.currentRoom).subscribe(
       data=>{
         this.getRooms();
@@ -137,7 +148,6 @@ export class RoomComponent implements OnInit {
         console.error(error);
       }
     )
-    console.log(this.currentRoom);
   }
 
 }

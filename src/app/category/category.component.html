@@ -58,12 +58,15 @@
         <h5 class="modal-title" id="ModalLabel">Supprimer la categorie</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Voulez vous vraiment supprimer le client
+      <div class="modal-body text-center">
+        Voulez vous vraiment supprimer la categorie "{{currentCategory.designation}}"
+        <p>
+          <b class="form-text text-muted text-center mt-3">Attention toute les chambres ayant cette categorie sera aussi supprimer</b>
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Supprimer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteCategory()">Supprimer</button>
       </div>
     </div>
   </div>
@@ -83,26 +86,24 @@
       <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
         [dtTrigger]="dtTrigger">
         <thead>
-          <tr>
-            <th>ID</th>
+          <tr class="text-center">
             <th>Designation</th>
             <th>Description</th>
             <th>Prix</th>
-            <th>Action</th>
+            <th>Action</th>s
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cat of AllCategory">
-            <td>{{cat.id}}</td>
+          <tr *ngFor="let cat of AllCategory" class="text-center">
             <td>{{cat.designation}}</td>
             <td>{{cat.description}}</td>
-            <td>{{cat.price}}</td>
-            <td>
+            <td>{{cat.price}} Ar</td>
+            <td class="td-action text-center">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CategorieModal" (click)="ModifierCategory(cat)">
-                Modifier
+                <fa-icon [icon]="FaModif"></fa-icon>
               </button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategorie">
-                Supprimer
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCategorie" (click)="supprimerCategory(cat)">
+                <fa-icon [icon]="FaDel"></fa-icon>
               </button>
             </td>
           </tr>

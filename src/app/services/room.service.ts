@@ -24,7 +24,7 @@ export class RoomService {
   }
 
   updateRoom(room:any):Observable<any>{
-    return this.http.put(this.baseUrl+"/api/rooms/"+room.number,room);
+    return this.http.put(this.baseUrl+"/api/rooms/"+room.id,room);
   }
 
   deleteRoom(id:any):Observable<any>{

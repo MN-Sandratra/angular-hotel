@@ -64,7 +64,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Voulez vous vraiment supprimer cette chambre
+          Voulez vous vraiment supprimer la chambre numero <b>{{currentRoom.number}}</b>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -88,7 +88,7 @@
           <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
             [dtTrigger]="dtTrigger">
             <thead>
-              <tr>
+              <tr class="text-center">
                 <th>Numero de Chambre</th>
                 <th>Type</th>
                 <th>Category</th>
@@ -96,17 +96,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let room of Rooms">
+              <tr *ngFor="let room of Rooms" class="text-center">
                 <td>{{room.number}}</td>
                 <td>{{room.type}}</td>
                 <td>{{room.category.designation}}</td>
-                <td>
+                <td class="td-action text-center">
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RoomModal"
                     (click)="modifierRoom(room)">
-                    Modifier
+                    <fa-icon [icon]="FaModif"></fa-icon>
                   </button>
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRoom">
-                    Supprimer
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteRoom" (click)="deleteRoom(room)">
+                    <fa-icon [icon]="FaDel"></fa-icon>
                   </button>
                 </td>
               </tr>
