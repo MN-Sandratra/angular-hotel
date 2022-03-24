@@ -1,0 +1,127 @@
+<div>
+  <!-- Modal -->
+  <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="ModalClient" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} un Client</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class=" row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label for="#nom"> Nom </label>
+                  <input class=" form-control" placeholder="Nom" type="text" 
+                  id="nom" #nom="ngModel" required minlength="2"
+                  [(ngModel)]="currentClient.person.firstName" name="firstName"/>
+                  <small class="text-danger" [class.d-none]="nom.valid||nom.untouched"> Un nom doit contenir au moins 3 caracteres</small>
+                </div>
+              </div>
+              <div class=" col-md-6 pl-md-1">
+                <div class=" form-group">
+                  <label> Prenom </label>
+                  <input class=" form-control" placeholder="Prenom" type="text" [(ngModel)]="currentClient.person.lastName" name="lastName"/>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> CIN </label>
+                  <input class=" form-control" placeholder="CIN" type="text" [(ngModel)]="currentClient.person.cin" name="cin" />
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Telephone</label>
+                  <input class=" form-control" placeholder="Telephone" type="text" [(ngModel)]="currentClient.person.phone" name="phone"/>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <span>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          </span>
+          <span [ngSwitch]="currentAction">
+            <span *ngSwitchCase="'Modifier'">
+              <button type="button" class="btn btn-primary" (click)="updateClient()" data-bs-dismiss="modal">Modifier</button>
+            </span>
+            <span *ngSwitchCase="'Ajouter'">
+              <button type="button" class="btn btn-primary" (click)="addClient()" data-bs-dismiss="modal">Ajouter</button>
+            </span>
+            <p *ngSwitchDefault>
+            </p>
+          </span>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Delete-->
+  <div class="modal fade" id="deleteClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Supprimer le client</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Voulez vous vraiment supprimer le client <b>"{{currentClient.person.firstName}} {{currentClient.person.lastName}}"</b>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="deleteClient()" data-bs-dismiss="modal">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tableau">
+      <div class="t-header">
+        <h1>Client</h1>
+      </div>
+      <div class="card-body">
+        <div class="action">
+          <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="ajoutClient()">
+            <fa-icon [icon]="FaAdd"></fa-icon> Ajouter
+          </button>
+        </div>
+        <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+          <thead>
+            <tr class="text-center">
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>CIN</th>
+              <th>Telephone</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of Clients" class="text-center">
+              <td>{{client.person.firstName}}</td>
+              <td>{{client.person.lastName}}</td>
+              <td>{{client.person.cin}}</td>
+              <td>{{client.person.phone}}</td>
+              <td class="td-action text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="modifierClient(client)">
+                <fa-icon [icon]="FaModif"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClient" (click)="supprimerClient(client)">
+                <fa-icon [icon]="FaDel"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
