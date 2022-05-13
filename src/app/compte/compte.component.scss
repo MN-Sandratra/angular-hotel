@@ -1,0 +1,13 @@
+.modal,
+.fade,
+.show {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content .modal-header i.tim-icons {
+  font-size: large;
+  font-weight: bold;
+}
+
+.close:not(:disabled):not(.disabled):hover {
+  color: rgba($color: red, $alpha: 0.7);
+}
