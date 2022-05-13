@@ -10,10 +10,24 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="mb-0">Liste des comptes</h3>
-          <p class="text-sm mb-0">
-            Ici vous pouvez ajouter, modifier et supprimer un compte sélectioné.
-          </p>
+          <div class="row">
+            <h3 class="col-12 mb-0">Liste des comptes</h3>
+            <p class="col-12 ext-sm mb-0">
+              Ici vous pouvez ajouter, modifier et supprimer un compte
+              sélectioné.
+            </p>
+          </div>
+          <div class="row">
+            <!-- Add inspection trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary float-end ml-auto m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#form-compte-modal"
+            >
+              Ajouter Compte
+            </button>
+          </div>
         </div>
         <div class="card-body">
           <div>
@@ -110,5 +124,40 @@
       </div>
     </div>
     <!--fin type compte -->
+  </div>
+
+  <!--Form Compte Modal (Add or edit)-->
+  <div class="row">
+    <div
+      class="modal fade"
+      id="form-compte-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ modalTitle }}
+            </h5>
+
+            <button
+              type="button"
+              class="close p-0"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="form-compte-modal-close"
+            >
+              <i class="tim-icons icon-simple-remove"></i>
+            </button>
+          </div>
+          <div class="modal-body pt-0">
+            <app-form-compte></app-form-compte>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -22,6 +22,7 @@ import { CompteApiService } from './services/compte-api.service';
 import { EcritureApiService } from './services/ecriture-api.service';
 import { MouvementApiService } from './services/mouvement-api.service';
 import { TypeCompteApiService } from './services/type-compte-api.service';
+import { FormCompteComponent } from './compte/form-compte/form-compte.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TypeCompteApiService } from './services/type-compte-api.service';
     JournalComponent,
     CompteComponent,
     MouvementComponent,
+    FormCompteComponent,
   ],
 
   //ComponentsModule importer

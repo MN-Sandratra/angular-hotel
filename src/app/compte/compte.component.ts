@@ -16,11 +16,15 @@ export class CompteComponent implements OnInit {
   allCompte!: Observable<any[]>;
   allClasseCompte!: Observable<any[]>;
   allTypeCompte!: Observable<any[]>;
+
+  modalTitle!: string;
   constructor(
     private serviceCompte: CompteApiService,
     private serviceClassCompte: ClasseCompteApiService,
     private serviceTypeCompte: TypeCompteApiService
-  ) {}
+  ) {
+    this.modalTitle = 'Ajouter Compte';
+  }
 
   ngOnInit(): void {
     this.allCompte = this.serviceCompte.getAllCompte();
