@@ -1,33 +1,123 @@
-<div class=" content">
-    <h1>Reservation</h1>
-    <div class="container">
-      <div class="card m-5 p-3">
-          <div class="card-body">
-              <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                  <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>client</th>
-                      <th>Chambre</th>
-                      <th>date de Reservation</th>
-                      <th>debut du sejour</th>
-                      <th>fin du sejour</th>
-                      <th>Nombre de personne</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let reservation of Reservations">
-                      <td>{{reservation.id}}</td>
-                      <td>{{reservation.client}}</td>
-                      <td>{{reservation.room.number}}</td>
-                      <td>{{reservation.dateReservation}}</td>
-                      <td>{{reservation.dateDebut}}</td>
-                      <td>{{reservation.dateFin}}</td>
-                      <td>{{reservation.nbrPerson}}</td>
-                    </tr>
-                  </tbody>
-              </table>
-          </div>
-  
+<div class>
+  <div class="modal fade" id="ReservationModal" tabindex="-1" aria-labelledby="ModalChambre" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} Chambre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label for="#client"> Client </label>
+                  <select class="form-control" name="category" [(ngModel)]="currentReservation.client" id="client">
+                    <option *ngFor="let cli of Clients" value={{cli.id}}>
+                      {{getClientName(cli)}}
+                    </option>
+                  </select>
+                  <input class=" form-control" placeholder="" type="number" name="numero"
+                     />
+                </div>
+              </div>
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Type </label>
+                  <textarea class=" form-control" placeholder="Description" type="text" name="type"
+                    [(ngModel)]="currentReservation.room"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class="form-group">
+                  <label for="">Categorie</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <span [ngSwitch]="currentAction">
+            <span *ngSwitchCase="'Modifier'">
+              <button type="button" class="btn btn-primary"
+                data-bs-dismiss="modal">Modifier</button>
+            </span>
+            <span *ngSwitchCase="'Ajouter'">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Ajouter</button>
+            </span>
+            <span *ngSwitchDefault>
+            </span>
+          </span>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal Delete-->
+  <div class="modal fade" id="deleteReservation" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Supprimer la chambre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Voulez vous vraiment supprimer cette reservation?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="tableau">
+      <div class="t-header">
+        <h1>Reservation</h1>
+      </div>
+      <div class="card-body">
+        <div class="action">
+          <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#clientModal">
+            Ajouter
+          </button>
+        </div>
+        <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+          <thead>
+            <tr class="text-center">
+              <th>client</th>
+              <th>Numero de Chambre</th>
+              <th>date de Reservation</th>
+              <th>debut du sejour</th>
+              <th>fin du sejour</th>
+              <th>Nombre de personne</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reservation of Reservations" class="text-center">
+              <td>{{getClientName(reservation.client)}}</td>
+              <td>{{reservation.room.number}}</td>
+              <td>{{reservation.dateReservation | date}}</td>
+              <td>{{reservation.dateDebut | date}}</td>
+              <td>{{reservation.dateFin |date}}</td>
+              <td>{{reservation.nbrPerson}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ReservationModal">
+                  <fa-icon [icon]="FaModif"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReservation">
+                  <fa-icon [icon]="FaDel"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>

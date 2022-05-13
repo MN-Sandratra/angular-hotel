@@ -44,17 +44,21 @@ export const ROUTES: RouteInfo[] = [
     icon: 'icon-paper',
     sousMenu: [
       {
-        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
-        path: '/client',
-        title: 'Client',
+        path: '/category',
+        title: 'Categorie',
       },
       {
         path: '/room',
         title: 'Chambre',
       },
       {
-        path: '/category',
-        title: 'Categorie',
+        //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
+        path: '/client',
+        title: 'Client',
+      },
+      {
+        path: '/reservation',
+        title: 'Reservation',
       },
     ],
     class: '',
