@@ -17,7 +17,7 @@
               sélectioné.
             </p>
           </div>
-          <div class="row">
+          <div class="action">
             <!-- Add inspection trigger modal -->
             <button
               type="button"
@@ -102,6 +102,17 @@
             Ici vous pouvez ajouter, modifier et supprimer un type compte
             sélectioné.
           </p>
+          <div class="action">
+            <!-- Add inspection trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary float-end ml-auto m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#form-type-compte-modal"
+            >
+              Ajouter Type Compte
+            </button>
+          </div>
         </div>
         <div class="card-body">
           <div>
@@ -131,7 +142,6 @@
     <div
       class="modal fade"
       id="form-compte-modal"
-      data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
       aria-hidden="true"
@@ -155,6 +165,38 @@
           </div>
           <div class="modal-body pt-0">
             <app-form-compte></app-form-compte>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Form Type Compte Modal (Add or edit)-->
+  <div class="row">
+    <div
+      class="modal fade"
+      id="form-type-compte-modal"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ajouter type compte</h5>
+
+            <button
+              type="button"
+              class="close p-0"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="form-type-compte-modal-close"
+            >
+              <i class="tim-icons icon-simple-remove"></i>
+            </button>
+          </div>
+          <div class="modal-body pt-0">
+            <app-form-type-compte></app-form-type-compte>
           </div>
         </div>
       </div>

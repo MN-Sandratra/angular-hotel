@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //import component footer, navbar, sidebar
 import { ComponentsModule } from './components/components.module';
@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JournalComponent } from './journal/journal.component';
 import { CompteComponent } from './compte/compte.component';
 import { FormCompteComponent } from './compte/form-compte/form-compte.component';
@@ -23,7 +23,7 @@ import { CompteApiService } from './services/compte-api.service';
 import { EcritureApiService } from './services/ecriture-api.service';
 import { MouvementApiService } from './services/mouvement-api.service';
 import { TypeCompteApiService } from './services/type-compte-api.service';
-
+import { FormTypeCompteComponent } from './compte/form-type-compte/form-type-compte.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { TypeCompteApiService } from './services/type-compte-api.service';
     CompteComponent,
     MouvementComponent,
     FormCompteComponent,
-    RoutingComponent
+    RoutingComponent,
+    FormTypeCompteComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,7 @@ import { TypeCompteApiService } from './services/type-compte-api.service';
     FormsModule,
     FontAwesomeModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     ClasseCompteApiService,
@@ -53,7 +54,7 @@ import { TypeCompteApiService } from './services/type-compte-api.service';
     MouvementApiService,
     TypeCompteApiService,
   ],
-//Component
+  //Component
   bootstrap: [AppComponent],
 })
 export class AppModule {}

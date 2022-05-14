@@ -29,6 +29,11 @@ export class CompteComponent implements OnInit {
   ngOnInit(): void {
     this.allCompte = this.serviceCompte.getAllCompte();
     this.allClasseCompte = this.serviceClassCompte.getAllClasseCompte();
+    //this.allTypeCompte = this.serviceTypeCompte.getAllTypeCompte();
+    this.getAllTypeCompte();
+  }
+
+  getAllTypeCompte() {
     this.allTypeCompte = this.serviceTypeCompte.getAllTypeCompte();
   }
 }
