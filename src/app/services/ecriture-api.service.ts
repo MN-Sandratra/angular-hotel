@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EcritureApiService {
-  readonly ecritureApiUrl = 'http://localhost:58379/api/ecritures';
+  readonly ecritureApiUrl = environment.baseUrl + '/api/ecritures';
   constructor(private http: HttpClient) {}
   getAllEcriture(): Observable<any[]> {
     return this.http.get<any>(this.ecritureApiUrl);
