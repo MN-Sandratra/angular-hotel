@@ -1,0 +1,134 @@
+<!-- Modal -->
+<div class="modal fade" id="ArticleModal" tabindex="-1" aria-labelledby="ModalSupplier" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} Fournisseur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Nom fournisseur </label>
+                <input class=" form-control" placeholder="Nom fournisseur" type="text" name="supplierName" [(ngModel)]="currentSupplier.supplierName" />
+              </div>
+            </div>
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Adresse</label>
+                <textarea class=" form-control" placeholder="Adresse" type="text" name="adress" [(ngModel)]="currentSupplier.adress"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Code postal</label>
+                <input class=" form-control" placeholder="Code Postal" type="text" name="codePost" [(ngModel)]="currentSupplier.codePost" />
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Téléphone </label>
+                <input class=" form-control" placeholder="Téléphone" type="text" name="phone" [(ngModel)]="currentSupplier.phone" />
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Mail</label>
+                <input class=" form-control" placeholder="Mail" type="text" name="email" [(ngModel)]="currentSupplier.email" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <span [ngSwitch]="currentAction">
+          <span *ngSwitchCase="'Modifier'">
+            <button type="button" class="btn btn-primary" (click)="updateSupplier()" data-bs-dismiss="modal">Modifier</button>
+          </span>
+          <span *ngSwitchCase="'Ajouter'">
+            <button type="button" class="btn btn-primary" (click)="addSupplier()" data-bs-dismiss="modal">Ajouter</button>
+          </span>
+          <p *ngSwitchDefault>
+          </p>
+        </span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="deleteSupplier" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Supprimer le fournisseur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        Voulez vous vraiment supprimer cet fournisseur"{{currentSupplier.supplierName}}"
+        <p>
+          <b class="form-text text-muted text-center mt-3">Attention cet fournisseur sera aussi supprimer</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteSupplier()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tableau">
+    <div class="t-header">
+      <h1>Fournisseur</h1>
+    </div>
+    <div class="card-body">
+      <div class="action">
+        <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#ArticleModal" (click)="ajouterSupplier()">
+          Ajouter
+        </button>
+      </div>
+      <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger">
+        <thead>
+          <tr class="text-center">
+            <th>Nom fournisseur</th>
+            <th>Adresse</th>
+            <th>Code Postal</th>
+            <th>Télephone</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sup of Suppliers" class="text-center">
+            <td>{{sup.supplierName}}</td>
+            <td>{{sup.adress}}</td>
+            <td>{{sup.codePost}}</td>
+            <td>{{sup.phone}}</td>
+            <td>{{sup.email}}</td>
+            <td class="td-action text-center">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ArticleModal" (click)="ModifierSupplier(sup)">
+                <fa-icon [icon]="FaModif"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSupplier" (click)="supprimerSupplier(sup)">
+                <fa-icon [icon]="FaDel"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

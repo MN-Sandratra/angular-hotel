@@ -1,0 +1,125 @@
+<!-- Modal -->
+<div class="modal fade" id="OrderLineModal" tabindex="-1" aria-labelledby="ModalOrder" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} Ligne Commande</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Quantité Commandée</label>
+                <input class=" form-control" placeholder="Quantité Commandée" type="text" name="qtCommander" [(ngModel)]="currentOrderLine.qtCommander" />
+              </div>
+            </div>
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label>Article</label>
+                <textarea class=" form-control" placeholder="Article" type="text" name="art" [(ngModel)]="currentOrderLine.art"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Prix </label>
+                <input class=" form-control" placeholder="Prix" type="text" name="price" [(ngModel)]="currentOrderLine.price" />
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Montant </label>
+                <input class=" form-control" placeholder="Montant" type="text" name="amount" [(ngModel)]="currentOrderLine.amount" />
+              </div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <span [ngSwitch]="currentAction">
+          <span *ngSwitchCase="'Modifier'">
+            <button type="button" class="btn btn-primary" (click)="updateOrderLine()" data-bs-dismiss="modal">Modifier</button>
+          </span>
+          <span *ngSwitchCase="'Ajouter'">
+            <button type="button" class="btn btn-primary" (click)="addOrderLine()" data-bs-dismiss="modal">Ajouter</button>
+          </span>
+          <p *ngSwitchDefault>
+          </p>
+        </span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="deleteOrderLine" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Supprimer la ligne de commande</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        Voulez vous vraiment supprimer cette ligne de commande "{{currentOrderLine.qtCommander}}"
+        <p>
+          <b class="form-text text-muted text-center mt-3">Attention cette ligne de commande sera aussi supprimer</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteOrderLine()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tableau">
+    <div class="t-header">
+      <h1>Ligne de Commande</h1>
+    </div>
+    <div class="card-body">
+      <div class="action">
+        <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#OrderLineModal" (click)="ajouterOrderLine()">
+          Ajouter
+        </button>
+      </div>
+      <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger">
+        <thead>
+          <tr class="text-center">
+            <th>Quantité Commandée</th>
+            <th>Article</th>
+            <th>Prix</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderline of orderLines" class="text-center">
+            <td>{{orderline.qtCommander}}</td>
+            <td>{{orderline.artId.designation}}</td>
+            <td>{{orderline.price}}</td>
+            <td>{{orderline.amount}}</td>
+            <td class="td-action text-center">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OrderLineModal" (click)="ModifierOrderLine(orderline)">
+                <fa-icon [icon]="FaModif"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOrderLine" (click)="supprimerOrderLine(orderline)">
+                <fa-icon [icon]="FaDel"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
