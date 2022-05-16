@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ClientService } from '../services/client.service';
 import { Client } from '../models/client';
 import { Person } from '../models/person';
 import { DataTableDirective } from 'angular-datatables';
 import {ToastrService} from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 import {faPencil,faAdd,faTrash} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -29,6 +30,7 @@ export class ClientComponent implements OnInit,OnDestroy {
   Clients:Client[]=[];
   currentClient:Client=new Client();
   currentAction:String="Ajouter"
+  @ViewChild("clientForm") form:NgForm | undefined;
   
   ngOnInit(): void {
     this.dtOptions = {
@@ -74,6 +76,14 @@ export class ClientComponent implements OnInit,OnDestroy {
     // this.currentClient.person.phone='';
   }
 
+  validation(){
+    let res=true;
+    if(this.form?.invalid)
+      res=false
+    console.log(this.currentClient);
+    return res;
+  }
+
   getClient(): void{
     this.apiClient.getAllClient().subscribe(
       data=>{
@@ -105,11 +115,13 @@ export class ClientComponent implements OnInit,OnDestroy {
   modifierClient(client:any){
     this.currentAction="Modifier";
     this.getClientById(client.id);
+    this.form?.resetForm();
   }
   ajoutClient(){
     this.currentAction="Ajouter";
     this.currentClient=new Client();
     this.initialistaion();
+    this.form?.resetForm();
   }
   supprimerClient(client:any){
     this.getClientById(client.id);
@@ -117,28 +129,42 @@ export class ClientComponent implements OnInit,OnDestroy {
 
   //action with api
   updateClient=():void=>{
-    this.apiClient.updateClient(this.currentClient).subscribe(
-      data=>{
-        this.getClient();
-        this.toastr.success("Modification du client reussit","Succes");
-        this.rerender();
-      },
-      error=>{
-        console.error(error);
-      }
-    )
+    if(this.validation()){
+      this.apiClient.updateClient(this.currentClient).subscribe(
+        data=>{
+          this.apiClient.updatePerson(this.currentClient.person).subscribe(
+            data=>{
+              this.getClient();
+              this.toastr.success("Modification du client reussit","Succes");
+              this.rerender();
+            },err=>{
+              console.log(err);
+            }
+          )
+        },
+        error=>{
+          console.error(error);
+        }
+      )
+    }else{
+      this.toastr.error("Remplissez les champs correctement","Attention")
+    }
   }
 
   addClient=()=>{
-    this.apiClient.createClient(this.currentClient).subscribe(
-      data=>{
-        this.getClient();
-        this.rerender();
-        this.toastr.success(""+data,"Succes");
-      },err=>{
-        console.error(err);
-      }
-    )
+    if(this.validation()){
+      this.apiClient.createClient(this.currentClient).subscribe(
+        data=>{
+          this.getClient();
+          this.rerender();
+          this.toastr.success("Ajout du client avec succes","Succes");
+        },err=>{
+          console.error(err);
+        }
+      )
+    }else{
+      this.toastr.error("Remplissez les champs correctement","Attention")
+    }
   }
   
   deleteClient(){

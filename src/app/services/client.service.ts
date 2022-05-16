@@ -25,10 +25,14 @@ export class ClientService {
   }
 
   updateClient(client:any):Observable<any>{
-    return this.http.put(this.baseUrl+"/api/persons/"+client.person.id,client.person);
+    return this.http.put(this.baseUrl+"/api/clients/"+client.person.id,client);
   }
 
   deleteClient(id:any):Observable<any>{
     return this.http.delete(this.baseUrl+"/api/clients/"+id);
+  }
+
+  updatePerson(person:any):Observable<any>{
+    return this.http.put(this.baseUrl+"/api/persons/"+person.id,person);
   }
 }
