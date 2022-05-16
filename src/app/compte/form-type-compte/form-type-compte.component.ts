@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Typecompte } from 'src/app/models/typecompte';
-import { Compte } from '../../models/compte';
 import { TypeCompteApiService } from '../../services/type-compte-api.service';
 import { ToastrService } from 'ngx-toastr';
 
