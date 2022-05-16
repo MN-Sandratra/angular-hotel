@@ -7,14 +7,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #categoryForm="ngForm">
           <div class=" row">
             <div class=" col-md-12">
               <div class=" form-group">
                 <label> Designation </label>
-                <input class=" form-control" placeholder="Designation" type="text" name="designation" [(ngModel)]="currentCategory.designation" />
+                <input class=" form-control" placeholder="Designation" type="text" name="designation" 
+                #designation="ngModel" 
+                required
+                [class.is-invalid]="designation.touched && designation.invalid"
+                [(ngModel)]="currentCategory.designation" />
               </div>
             </div>
+            <small class="text-danger" [class.d-none]="designation.untouched || designation.valid">La designation est requise</small>
             <div class=" col-md-12">
               <div class=" form-group">
                 <label> Description </label>
@@ -26,10 +31,25 @@
             <div class=" col-md-12">
               <div class=" form-group">
                 <label> Prix </label>
-                <input class=" form-control" placeholder="Prix" type="text" name="price" [(ngModel)]="currentCategory.price" />
+                <input class=" form-control" placeholder="Prix" type="number" name="price" 
+                #prix="ngModel" 
+                required
+                [class.is-invalid]="prix.touched && prix.invalid"
+                [(ngModel)]="currentCategory.price" />
               </div>
+              <small class="text-danger" [class.d-none]="prix.untouched || prix.valid">Le prix est requis</small>
             </div>
           </div>
+          <div class=" form-group">
+            <label> Image </label>
+          </div>
+          <ng-container *ngIf="currentCategory.image; else elseTemplate">
+            <app-showpic [images]="currentCategory.image"></app-showpic>
+            <button class="btn btn-info" (click)="rechoose()">Re choisir</button>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+          </ng-template>
         </form>
       </div>
       <div class="modal-footer">

@@ -3,4 +3,5 @@ export class Category {
     designation!:String;
     description!:String;
     price!:number;
+    image!:String;
 }

@@ -100,6 +100,7 @@
               <th>Prenom</th>
               <th>CIN</th>
               <th>Telephone</th>
+              <th>Email</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -109,6 +110,7 @@
               <td>{{client.person.lastName}}</td>
               <td>{{client.person.cin}}</td>
               <td>{{client.person.phone}}</td>
+              <td>{{client.email}}</td>
               <td class="td-action text-center">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clientModal" (click)="modifierClient(client)">
                 <fa-icon [icon]="FaModif"></fa-icon>

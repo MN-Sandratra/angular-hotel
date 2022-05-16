@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { faAdd, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Category } from '../models/category';
 import { Room } from '../models/room';
@@ -21,18 +23,21 @@ export class RoomComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtElement:DataTableDirective | undefined;
 
-  constructor(private apiRoom:RoomService,private apiCategory:CategoryService) { }
+  constructor(private apiRoom:RoomService,private apiCategory:CategoryService,private toast:ToastrService) { }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
   Rooms:Room[]=[];
   Category:Category[]=[];
+  response:any;
   currentRoom:Room=new Room();
   currentAction:String="Ajouter";
+  @ViewChild("roomForm") form:NgForm | undefined;
 
   ngAfterViewInit(): void {
-    setTimeout(()=>this.dtTrigger.next(),100);
+    this.getcategory();
+    setTimeout(()=>this.dtTrigger.next(),500);
   }
 
   ngOnInit(): void {
@@ -110,44 +115,76 @@ export class RoomComponent implements OnInit {
     this.currentAction="Modifier";
     console.log(room.id);
     this.getRoomById(room.id);
+    this.form?.resetForm();
   }
   ajoutRoom=():void=>{
     this.currentAction="Ajouter";
     this.currentRoom=new Room();
     this.currentRoom.category=new Category();
+    this.form?.resetForm();
   }
   deleteRoom=(room:any):void=>{
     this.getRoomById(room.id);
   }
+  rechoose(){
+    this.currentRoom.image="";
+  }
+  uploadFinished = (event:any) => { 
+    this.response = event; 
+    this.currentRoom.image=event.dbPath;
+    console.log(event);
+  }
+  validation(){
+    let res=true;
+    if(this.currentRoom.number==null ||
+    this.currentRoom.type.trim().length==0 || 
+    this.currentRoom.category.id==null || 
+    this.currentRoom.image==""){
+      res=false;
+    }
+    console.log(this.currentRoom);
+    return res;
+  }
+
 
   addRoom=()=>{
-    let room={
-      "number":this.currentRoom.number,
-      "type":this.currentRoom.type,
-      "categoryId":this.currentRoom.category.id
-    };
-    console.log(room);
-    this.apiRoom.createRoom(room).subscribe(
-      data=>{
-        this.getRooms();
-        this.rerender();
-      },err=>{
-        console.error(err);
-      }
-    )
+    if(this.validation()){
+      let room={
+        "number":this.currentRoom.number,
+        "type":this.currentRoom.type,
+        "categoryId":this.currentRoom.category.id,
+        "image":this.currentRoom.image,
+      };
+      console.log(room);
+      this.apiRoom.createRoom(room).subscribe(
+        data=>{
+          this.getRooms();
+          this.rerender();
+          this.toast.success("Ajout d'une nouvelle chambre","succes")
+        },err=>{
+          console.error(err);
+        }
+      ) 
+    }else{
+      this.toast.error("veuillez Remplir les champs correctement","Attention")
+    }
   }
   updateRoom=():void=>{
+    if(this.validation()){
     this.currentRoom.categoryId=this.currentRoom.category.id;
     console.log(this.currentRoom.id);
     this.apiRoom.updateRoom(this.currentRoom).subscribe(
       data=>{
         this.getRooms();
         this.rerender();
+        this.toast.success("Modification de la chambre reussit","succes")
       },
       error=>{
         console.error(error);
       }
-    )
+    )}else{
+      this.toast.error("veuillez Remplir les champs correctement","Attention")
+    }
   }
 
 }

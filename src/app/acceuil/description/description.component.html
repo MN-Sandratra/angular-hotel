@@ -1,0 +1,50 @@
+<div class="about_area">
+    <div class="container">
+        <div class="row">
+            <ng-container *ngIf="inverse; else elseTemplate">
+                <div class="col-xl-7 col-lg-7">
+                    <div class="about_thumb d-flex">
+                        <div class="img_1">
+                            <img [src]="descri.img1" alt="">
+                        </div>
+                        <div class="img_2">
+                            <img [src]="descri.img2" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5">
+                    <div class="about_info">
+                        <div class="section_title mb-20px">
+                            <span>{{descri.libelle}}</span>
+                            <h3>{{descri.designation}}</h3>
+                        </div>
+                        <p>{{descri.desci}}</p>
+                    </div>
+                </div>
+                
+                
+            </ng-container>
+            <ng-template #elseTemplate>
+                <div class="col-xl-5 col-lg-5">
+                    <div class="about_info">
+                        <div class="section_title mb-20px">
+                            <span>{{descri.libelle}}</span>
+                            <h3>{{descri.designation}}</h3>
+                        </div>
+                        <p>{{descri.desci}}</div>
+                </div>
+                <div class="col-xl-7 col-lg-7">
+                    <div class="about_thumb d-flex">
+                        <div class="img_1">
+                            <img [src]="descri.img1" alt="">
+                        </div>
+                        <div class="img_2">
+                            <img [src]="descri.img2" alt="">
+                        </div>
+                    </div>
+                </div>
+                
+            </ng-template>
+        </div>
+    </div>
+</div>

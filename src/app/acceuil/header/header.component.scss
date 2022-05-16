@@ -1,0 +1,24 @@
+header .carousel-inner{
+    height: 100vh;
+}
+
+.banner{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.carousel-caption{
+    padding-bottom: 250px;
+    color: #fff;
+    font-family: Poppins-Regular;
+    h5{
+        font-weight: bold;
+        color: #fff;
+        font-size: 70px;
+    }
+    p{
+        font-weight: 200;
+    }
+}

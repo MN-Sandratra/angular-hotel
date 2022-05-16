@@ -1,0 +1,43 @@
+<div class="modal-body">
+    <div class="card mt-3">
+      <div class="card-body">
+        <input type="file" name="fichier" id="uploader" (change)="saveFile($event)" #videoField accept=".jpg,.png"
+          hidden />
+        <div class="fileUploadWrapper">
+          <form>
+            <div class="row">
+              <div class="col-md-12" *ngIf="progress">
+                <div class="progress form-group">
+                  <div
+                    class="progress-bar bg-success"
+                    role="progressbar"
+                    [style.width.%]="progress"
+                  ></div>
+                </div>
+              </div>
+  
+              <div class="col-md-12">
+                <div class="fileupload" appDragDrop (click)="videoField.click()" (fileDropped)="getFile($event)">
+                  <span class="ddinfo">Deposez votre fichier ici
+                    <p>ou clicker pour choisir un fichier</p>
+                  </span>
+                </div>
+              </div>
+  
+              <div class="col-md-12">
+                <div class="image-list row" *ngFor="let file of fileArr; let i = index">
+                  <div class="profile col">
+                    <fa-icon [icon]="faVideo" class="mr-2 vidicon"></fa-icon>
+                  </div>
+                  <p class="col">{{ file.name }}</p>
+                  <p class="col mybutton">
+                    <button (click)="uploadFile($event)" class="btn btn-default">Enregistrer</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  

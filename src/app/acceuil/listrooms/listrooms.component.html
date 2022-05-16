@@ -1,0 +1,23 @@
+<div class="offers_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section_title text-center mb-100">
+                    <span>Nos Chambres</span>
+                    <h3>Liste des Chambres</h3>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="showRooms; else elseTemplate">
+            <div class="row">
+                <div class="col-xl-4 col-md-4" *ngFor="let room of showRooms">
+                    <app-rooms [room]="room"></app-rooms>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <h2>Aucune Chambre Disponible</h2>
+        </ng-template>
+    </div>
+</div>
+<app-footers></app-footers>

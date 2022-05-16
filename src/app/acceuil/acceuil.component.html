@@ -1,0 +1,25 @@
+<app-header></app-header>
+<app-description [descri]=Apropos></app-description>
+<div class="video_area video_bg overlay">
+    <div class="video_area_inner text-center">
+        <h3>Pour vos vacances <br>
+            Relaxer vous dans nos locaux</h3>
+    </div>
+</div>
+<app-description [inverse]=true [descri]=Restaurant></app-description>
+<div class="features_room">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section_title text-center mb-100">
+                    <span>Categorie des Chambres</span>
+                    <h3>Choisir une Cathegorie</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rooms_here">
+        <app-frontcategory *ngFor="let item of categories" [categorie]="item"></app-frontcategory>
+    </div>
+</div>
+<app-footers></app-footers>

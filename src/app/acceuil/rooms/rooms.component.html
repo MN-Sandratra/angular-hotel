@@ -1,0 +1,14 @@
+<div class="single_offers card">
+    <div class="about_thumb">
+        <img [src]="createImgPath(room.image)" alt="" class="images">
+    </div>
+    <div class="card-body p-4">
+        <h3 class="text-center">{{room.category.designation}}</h3>
+        <ul>
+            <li><span class="bold">Numero: </span> {{room.id}}</li>
+            <li><span class="bold">Description: </span> {{room.type}}</li>
+            <li><span class="bold">Prix: </span> {{room.category.price}}</li>
+        </ul>
+        <a href="#" class="book_now">Reserver</a>
+    </div>
+</div>

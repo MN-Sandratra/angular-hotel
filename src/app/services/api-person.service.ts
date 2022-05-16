@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Person } from '../models/person';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiPersonService {
-  private baseUrl = "http://localhost:3030";
+  private baseUrl = environment.baseUrl;
 
   constructor(private http:HttpClient) { }
   getAllPerson():Observable<any>{

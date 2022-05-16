@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { data } from 'jquery';
 import { faAdd, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -20,11 +22,13 @@ export class CategoryComponent implements OnInit,OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   dtElement:DataTableDirective | undefined;
+  response: any;
 
-  constructor(private apiCateory:CategoryService) { }
+  constructor(private apiCateory:CategoryService,private toast:ToastrService) { }
   AllCategory:Category[]=[];
   currentCategory:Category=new Category();
   currentAction:String="Ajouter"
+  @ViewChild("categoryForm") form:NgForm | undefined;
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -60,11 +64,32 @@ export class CategoryComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+  
+  rechoose(){
+    this.currentCategory.image="";
+  }
+  uploadFinished = (event:any) => { 
+    this.response = event; 
+    this.currentCategory.image=event.dbPath;
+    console.log(event);
+  }
+
+  validation(){
+    let res=true;
+    if(this.currentCategory.designation.trim().length===0 ||
+    this.currentCategory.designation.trim().length==0 || 
+    this.currentCategory.image==""){
+      res=false;
+    }
+    console.log(this.currentCategory);
+    return res;
+  }
 
   ngAfterViewInit(): void {
+    this.getAllCategory();
     setTimeout(() => {
       this.dtTrigger.next();
-    },100);
+    },500);
     
   }
   getAllCategory(){
@@ -96,10 +121,12 @@ export class CategoryComponent implements OnInit,OnDestroy {
   ModifierCategory(category:Category){
     this.currentAction="Modifier"
     this.getCategoryById(category.id);
+    this.form?.resetForm();
   }
   ajouterCategory(){
     this.currentAction="Ajouter"
     this.currentCategory=new Category();
+    this.form?.resetForm();
   }
   supprimerCategory(category:Category){
     this.getCategoryById(category.id);
@@ -107,26 +134,36 @@ export class CategoryComponent implements OnInit,OnDestroy {
 
 
   updateCategory=():void=>{
-    this.apiCateory.updateCategory(this.currentCategory).subscribe(
-      data=>{
-        this.getAllCategory();
-        this.rerender();
-      },
-      error=>{
-        console.error(error);
-      }
-    )
+    if(this.validation()){
+      this.apiCateory.updateCategory(this.currentCategory).subscribe(
+        data=>{
+          this.getAllCategory();
+          this.rerender();
+          this.toast.success("Modification de la categorie reussit","Felicitation")
+        },
+        error=>{
+          console.error(error);
+        }
+      )
+    }else{
+      this.toast.error("Veuillez remplir tous les champs correctement","Attention")
+    }
   }
 
   addCategory=():void=>{
+    if(this.validation()){
     this.apiCateory.createCategory(this.currentCategory).subscribe(
       data=>{
         this.getAllCategory();
         this.rerender();
+        this.toast.success("Ajout de la categorie avec succes","Felicitation")
       },err=>{
         console.log(err);
       }
     )
+    }else{
+      this.toast.error("Veuillez remplir tous les champs correctement","Attention")
+    }
   }
 
   deleteCategory(){

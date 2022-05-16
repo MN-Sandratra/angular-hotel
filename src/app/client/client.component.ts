@@ -62,7 +62,7 @@ export class ClientComponent implements OnInit,OnDestroy {
     this.initialistaion();
   }
   ngAfterViewInit(): void {
-    setTimeout(()=>this.dtTrigger.next(),200);
+    setTimeout(()=>this.dtTrigger.next(),500);
   }
 
   initialistaion():void{

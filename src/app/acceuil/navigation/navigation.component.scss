@@ -1,0 +1,29 @@
+.navbar-nav a{
+    color:#fff;
+}
+.navbar .navbar-brand{
+    position: initial;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 15px;
+    font-family: Poppins-Regular;
+}
+
+.nav-transparent{
+    background-color: transparent !important;
+    border-color: transparent;
+}
+
+.nav-transparent.nav-black{
+    background-color: black!important;
+}
+.navbar-nav.navbar-right{
+    margin: 15px 0;
+
+    a{
+        text-transform: uppercase;
+    }
+}
+.navbar-toggler{
+    color: #fff;
+}

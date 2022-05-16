@@ -6,4 +6,5 @@ export class Room {
     categoryId!:number;
     category!:Category;
     type!:String;
+    image!:String;
 }

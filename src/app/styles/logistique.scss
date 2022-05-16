@@ -32,9 +32,18 @@
     align-items: center;
   }
 }
+.modal.show .modal-dialog {
+  transform: translate(0, 2%)!important;
+}
 
 .td-action{
   button{
     margin: 0 5px;
+  }
+}
+
+.sidebar-wrapper{
+  a p{
+    font-size: 12px !important;
   }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Room } from '../models/room';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Room } from '../models/room';
 })
 export class RoomService {
 
-  private baseUrl = "http://localhost:3030";
+  private baseUrl = environment.baseUrl;
 
   constructor(private http:HttpClient) { }
   getAllRoom():Observable<any>{

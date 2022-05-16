@@ -8,31 +8,52 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form  #roomForm="ngForm">
             <div class=" row">
               <div class=" col-md-12">
                 <div class=" form-group">
                   <label> Numero de chambre </label>
                   <input class=" form-control" placeholder="" type="number" name="numero"
+                    #number="ngModel"
+                    required
+                    [class.is-invalid]="number.touched && number.invalid"  
                     [(ngModel)]="currentRoom.number" />
                 </div>
+                <small class="text-danger" [class.d-none]="number.untouched || number.valid">Veillez indiquer le numero de la chambre </small>
               </div>
               <div class=" col-md-12">
                 <div class=" form-group">
                   <label> Type </label>
                   <textarea class=" form-control" placeholder="Description" type="text" name="type"
-                    [(ngModel)]="currentRoom.type"></textarea>
+                  #type="ngModel"
+                  required
+                  [class.is-invalid]="type.touched && type.invalid"  
+                  [(ngModel)]="currentRoom.type"></textarea>
                 </div>
+                <small class="text-danger" [class.d-none]="type.untouched || type.valid">Le type de la chambre est requise</small>
               </div>
             </div>
             <div class=" row">
               <div class=" col-md-12">
                 <div class="form-group">
                   <label for="">Categorie</label>
-                  <select class="form-control" name="category" [(ngModel)]="currentRoom.category.id" id="">
+                  <select class="form-control" name="category" #category="ngModel"
+                  [class.is-invalid]="category.touched && category.invalid"  
+                  [(ngModel)]="currentRoom.category.id" id="">
                     <option *ngFor="let cat of Category" value={{cat.id}}>{{cat.designation}}</option>
                   </select>
                 </div>
+                <small class="text-danger" [class.d-none]="category.untouched || category.valid">Veuillez selectionner une categorie</small>
+                <div class=" form-group">
+                  <label> Image </label>
+                </div>
+                <ng-container *ngIf="currentRoom.image; else elseTemplate">
+                  <app-showpic [images]="currentRoom.image"></app-showpic>
+                  <button class="btn btn-info" (click)="rechoose()">Re choisir</button>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+                </ng-template>
               </div>
             </div>
           </form>
