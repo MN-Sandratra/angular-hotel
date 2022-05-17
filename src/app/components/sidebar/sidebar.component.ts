@@ -91,16 +91,12 @@ export const ROUTES: RouteInfo[] = [
     sousMenu: [
       {
         //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
-        path: 'compte',
+        path: '/admin/compte',
         title: 'Compte',
       },
       {
-        path: 'mouvement',
+        path: '/admin/mouvement',
         title: 'Mouvement',
-      },
-      {
-        path: 'journal',
-        title: 'Journal',
       },
     ],
     class: '',
