@@ -24,6 +24,8 @@ import { EcritureApiService } from './services/ecriture-api.service';
 import { MouvementApiService } from './services/mouvement-api.service';
 import { TypeCompteApiService } from './services/type-compte-api.service';
 import { FormTypeCompteComponent } from './compte/form-type-compte/form-type-compte.component';
+import { ShowMouvementComponent } from './mouvement/show-mouvement/show-mouvement.component';
+import { AddEditMouvementComponent } from './mouvement/add-edit-mouvement/add-edit-mouvement.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { FormTypeCompteComponent } from './compte/form-type-compte/form-type-com
     FormCompteComponent,
     RoutingComponent,
     FormTypeCompteComponent,
+    ShowMouvementComponent,
+    AddEditMouvementComponent,
   ],
   imports: [
     BrowserModule,
