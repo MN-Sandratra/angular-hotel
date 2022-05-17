@@ -10,6 +10,14 @@ import { RoomComponent } from './room/room.component';
 import { CompteComponent } from './compte/compte.component';
 import { MouvementComponent } from './mouvement/mouvement.component';
 import { JournalComponent } from './journal/journal.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { ArticleComponent } from './article/article.component';
+import { ArticleCatComponent } from './article-cat/article-cat.component';
+import { OrderComponent } from './order/order.component';
+import { OrderLineComponent } from './order-line/order-line.component';
+import { InputComponent } from './input/input.component';
+import { OutputComponent } from './output/output.component';
+import { ReceptionComponent } from './reception/reception.component';
 
 const routes: Routes = [
   {
@@ -21,11 +29,20 @@ const routes: Routes = [
       { path: 'compte', component: CompteComponent },
       { path: 'mouvement', component: MouvementComponent },
       { path: 'journal', component: JournalComponent },
+      { path: 'client', component: ClientComponent },
+      { path: 'supplier', component: SupplierComponent },
+      { path: 'articleCat', component: ArticleCatComponent },
+      { path: 'order', component: OrderComponent },
+      { path: 'orderLine', component: OrderLineComponent },
+      { path: 'input', component: InputComponent },
+      { path: 'output', component: OutputComponent },
+      { path: 'reception', component: ReceptionComponent },
+      { path: 'article', component: ArticleComponent }
     ]
   },
   { path: '', component: AcceuilComponent },
   { path: 'listRoom/:id', component: ListroomsComponent },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="tableau">
+      <div class="t-header">
+        <h1></h1>
+      </div>
+      <div class="card-body">
+        <div class="action">
+          <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#OutputModal">
+            Ajouter
+          </button>
+        </div>
+        <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+          <thead>
+            <tr class="text-center">
+              <th>Quantité</th>
+              <th>Date de sortie</th>
+              <th>Article</th>
+              <th>Prix de sortir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let output of outputs" class="text-center">
+              <td>{{output.quantity}}</td>
+              <td>{{output.dateSortie}}</td>
+              <td>{{output.art.designation}}</td>
+              <td>{{output.prixSortie}}</td>
+              <td class="td-action text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#OutputModal">
+                  <fa-icon [icon]="FaModif"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOutut">
+                  <fa-icon [icon]="FaDel"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>
+

@@ -38,6 +38,16 @@ import { TypeCompteApiService } from './services/type-compte-api.service';
 import { FormTypeCompteComponent } from './compte/form-type-compte/form-type-compte.component';
 import { ShowMouvementComponent } from './mouvement/show-mouvement/show-mouvement.component';
 import { AddEditMouvementComponent } from './mouvement/add-edit-mouvement/add-edit-mouvement.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { ArticleComponent } from './article/article.component';
+import { ArticleCatComponent } from './article-cat/article-cat.component';
+import { OrderComponent } from './order/order.component';
+import { OrderLineComponent } from './order-line/order-line.component';
+import { ReceptionComponent } from './reception/reception.component';
+import { InputComponent } from './input/input.component';
+import { OutputComponent } from './output/output.component'
+import { ReservationComponent } from './reservation/reservation.component';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +73,15 @@ import { AddEditMouvementComponent } from './mouvement/add-edit-mouvement/add-ed
     FormTypeCompteComponent,
     ShowMouvementComponent,
     AddEditMouvementComponent,
+    ReservationComponent,
+    SupplierComponent,
+    ArticleComponent,
+    ArticleCatComponent,
+    OrderComponent,
+    OrderLineComponent,
+    ReceptionComponent,
+    InputComponent,
+    OutputComponent
   ],
   imports: [
     BrowserModule,

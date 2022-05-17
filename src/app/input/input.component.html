@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="tableau">
+      <div class="t-header">
+        <h1></h1>
+      </div>
+      <div class="card-body">
+        <div class="action">
+          <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#InputModal">
+            Ajouter
+          </button>
+        </div>
+        <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+          <thead>
+            <tr class="text-center">
+              <th>Quantité</th>
+              <th>Date entrée</th>
+              <th>Article</th>
+              <th>Prix d'entrée</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let input of inputs" class="text-center">
+              <td>{{input.quantity}}</td>
+              <td>{{input.dateEntree}}</td>
+              <td>{{input.art.designation}}</td>
+              <td>{{input.prixEntree}}</td>
+              <td class="td-action text-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#InputModal">
+                  <fa-icon [icon]="FaModif"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteInput">
+                  <fa-icon [icon]="FaDel"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

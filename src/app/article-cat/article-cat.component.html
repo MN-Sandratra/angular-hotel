@@ -1,0 +1,104 @@
+<!-- Modal -->
+<div class="modal fade" id="ArticleCategoryModal" tabindex="-1" aria-labelledby="ModalArticleCategory" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{currentAction}} Catégorie Article</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Nom Catégorie </label>
+                <input class=" form-control" placeholder="Nom catégorie" type="text" name="categoryName" [(ngModel)]="currentArticleCategory.categoryName" />
+              </div>
+            </div>
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> Description</label>
+                <textarea class=" form-control" placeholder="Description" type="text" name="description" [(ngModel)]="currentArticleCategory.description"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <span [ngSwitch]="currentAction">
+          <span *ngSwitchCase="'Modifier'">
+            <button type="button" class="btn btn-primary" (click)="updateArticleCategory()" data-bs-dismiss="modal">Modifier</button>
+          </span>
+          <span *ngSwitchCase="'Ajouter'">
+            <button type="button" class="btn btn-primary" (click)="addArticleCategory()" data-bs-dismiss="modal">Ajouter</button>
+          </span>
+          <p *ngSwitchDefault>
+          </p>
+        </span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="deleteArticleCategory" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabel">Supprimer catégorie article</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        Voulez vous vraiment supprimer cette catégorie d'article "{{currentArticleCategory.categoryName}}"
+        <p>
+          <b class="form-text text-muted text-center mt-3">Attention cette catégorie sera aussi supprimer</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteArticleCategory()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tableau">
+    <div class="t-header">
+      <h1>Catégorie article</h1>
+    </div>
+    <div class="card-body">
+      <div class="action">
+        <button type="button" class="btn btn-primary ml-auto" data-bs-toggle="modal" data-bs-target="#ArticleCategoryModal" (click)="ajouterArticleCategory()">
+          Ajouter
+        </button>
+      </div>
+      <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger">
+        <thead>
+          <tr class="text-center">
+            <th>Nom catégorie</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let artCat of articlecategories" class="text-center">
+            <td>{{artCat.categoryName}}</td>
+            <td>{{artCat.description}}</td>
+            <td class="td-action text-center">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ArticleCategoryModal" (click)="ModifierArticleCategory(artCat)">
+                <fa-icon [icon]="FaModif"></fa-icon>
+              </button>
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteArticleCategory" (click)="supprimerArticleCategory(artCat)">
+                <fa-icon [icon]="FaDel"></fa-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

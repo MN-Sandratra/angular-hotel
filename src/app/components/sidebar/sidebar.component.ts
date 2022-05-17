@@ -16,25 +16,24 @@ export const ROUTES: RouteInfo[] = [
     sousMenu: [
       {
         //boucle @donné sousMenu ato anatin'ity izy rehefa eo @sous menu
-        path: '',
-        title: 'Stock sous menu 1',
+        path: '/supplier',
+        title: 'Fournisseur',
       },
       {
-        path: '',
-        title: 'Stock sous menu 2',
+        path: '/article',
+        title: 'Article',
       },
       {
-        path: '',
-        title: 'Stock sous menu 3',
+        path: '/articleCat',
+        title: 'Catégorie article',
       },
+     
+      
       {
-        path: '',
-        title: 'Stock sous menu 4',
+        path: '/orderLine',
+        title: 'Ligne de commande',
       },
-      {
-        path: '',
-        title: 'Stock sous menu 5',
-      },
+     
     ],
     class: '',
   },
