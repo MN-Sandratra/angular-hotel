@@ -1,0 +1,40 @@
+<form>
+  {{ currentCompte | json }}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label> Type Compte </label>
+        <input
+          [(ngModel)]="currentCompte.nomTypeCompte"
+          class="form-control text-black"
+          placeholder="Type Compte"
+          type="text"
+          name="typecompte"
+        />
+      </div>
+    </div>
+  </div>
+</form>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    Close
+  </button>
+  <span>
+    <span>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+        Modifier
+      </button>
+    </span>
+    <span>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-dismiss="modal"
+        (click)="saveTypeCompte()"
+      >
+        Ajouter
+      </button>
+    </span>
+    <p></p>
+  </span>
+</div>

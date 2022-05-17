@@ -5,10 +5,9 @@ import { environment } from 'src/environments/environment';
 import { Client } from '../models/client';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClientService {
-
   private baseUrl = environment.baseUrl;
 
   constructor(private http:HttpClient) { }
@@ -16,20 +15,20 @@ export class ClientService {
     return this.http.get(this.baseUrl+"/api/clients");
   }
 
-  getClientById(id:any):Observable<any>{
-    return this.http.get(this.baseUrl+"/api/clients/"+id);
+  getClientById(id: any): Observable<any> {
+    return this.http.get(this.baseUrl + '/api/clients/' + id);
   }
 
-  createClient(client:Client):Observable<any>{
-    return this.http.post(this.baseUrl+"/api/clients/",client);
+  createClient(client: Client): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/clients/', client);
   }
 
   updateClient(client:any):Observable<any>{
     return this.http.put(this.baseUrl+"/api/clients/"+client.person.id,client);
   }
 
-  deleteClient(id:any):Observable<any>{
-    return this.http.delete(this.baseUrl+"/api/clients/"+id);
+  deleteClient(id: any): Observable<any> {
+    return this.http.delete(this.baseUrl + '/api/clients/' + id);
   }
 
   updatePerson(person:any):Observable<any>{

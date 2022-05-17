@@ -1,0 +1,205 @@
+<div>
+  <div class="row">
+    <div class="col-md-8 ml-auto mr-auto">
+      <h2 class="text-center">Administration Compte</h2>
+    </div>
+  </div>
+
+  <!--début compte -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <h3 class="col-12 mb-0">Liste des comptes</h3>
+            <p class="col-12 ext-sm mb-0">
+              Ici vous pouvez ajouter, modifier et supprimer un compte
+              sélectioné.
+            </p>
+          </div>
+          <div class="action">
+            <!-- Add inspection trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary float-end ml-auto m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#form-compte-modal"
+            >
+              Ajouter Compte
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Numéro</th>
+                  <th>Intitulé</th>
+                  <th>Id Classe</th>
+                  <th>Id Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let compte of allCompte | async">
+                  <td>{{ compte.id }}</td>
+                  <td>{{ compte.numeroCompte }}</td>
+                  <td>{{ compte.intituleCompte }}</td>
+                  <td>{{ compte.classecompteId }}</td>
+                  <td>{{ compte.typecompteId }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--fin compte -->
+
+  <div class="row">
+    <!--début classe compte -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Liste des classes comptes</h3>
+          <p class="text-sm mb-0">
+            Ici vous pouvez ajouter, modifier et supprimer une classe compte
+            sélectioné.
+          </p>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Classe Nom</th>
+                  <th>Classe Numéro</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let classecompte of allClasseCompte | async">
+                  <td>{{ classecompte.id }}</td>
+                  <td>{{ classecompte.nomClasse }}</td>
+                  <td>{{ classecompte.numeroClasse }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin classe compte -->
+
+    <!--début type compte -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Liste des types comptes</h3>
+          <p class="text-sm mb-0">
+            Ici vous pouvez ajouter, modifier et supprimer un type compte
+            sélectioné.
+          </p>
+          <div class="action">
+            <!-- Add inspection trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary float-end ml-auto m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#form-type-compte-modal"
+            >
+              Ajouter Type Compte
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <table class="table tablesorter" id="simple-table">
+              <thead class="text-primary">
+                <tr>
+                  <th>Id</th>
+                  <th>Type Compte</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let typecompte of allTypeCompte | async">
+                  <td>{{ typecompte.id }}</td>
+                  <td>{{ typecompte.nomTypeCompte }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--fin type compte -->
+  </div>
+
+  <!--Form Compte Modal (Add or edit)-->
+  <div class="row">
+    <div
+      class="modal fade"
+      id="form-compte-modal"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ modalTitle }}
+            </h5>
+
+            <button
+              type="button"
+              class="close p-0"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="form-compte-modal-close"
+            >
+              <i class="tim-icons icon-simple-remove"></i>
+            </button>
+          </div>
+          <div class="modal-body pt-0">
+            <app-form-compte></app-form-compte>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Form Type Compte Modal (Add or edit)-->
+  <div class="row">
+    <div
+      class="modal fade"
+      id="form-type-compte-modal"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ajouter type compte</h5>
+
+            <button
+              type="button"
+              class="close p-0"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              id="form-type-compte-modal-close"
+            >
+              <i class="tim-icons icon-simple-remove"></i>
+            </button>
+          </div>
+          <div class="modal-body pt-0">
+            <app-form-type-compte></app-form-type-compte>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
