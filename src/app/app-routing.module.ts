@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'reservation', component: ReservationComponent },
     ]
   },
-  { path: 'acceuil', component: AcceuilComponent},
+  { path: '', component: AcceuilComponent},
   { path: 'listRoom/:id', component: ListroomsComponent},
 ];
 

@@ -9,6 +9,76 @@
             <li><span class="bold">Description: </span> {{room.type}}</li>
             <li><span class="bold">Prix: </span> {{room.category.price}}</li>
         </ul>
-        <a href="#" class="book_now">Reserver</a>
+        <ng-container *ngIf="logcli.isLoggedIn; else elseTemplate">
+            <a class="book_now" data-bs-toggle="modal" data-bs-target="#ReservationModal" (click)="reset()">Reserver</a>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <a class="book_now" data-bs-toggle="modal" data-bs-target="#ModalForm">Reserver</a>
+        </ng-template>
     </div>
 </div>
+
+<div class="modal fade" id="ReservationModal" tabindex="-1" aria-labelledby="ModalChambre" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter une Reservation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #resForm="ngForm">
+            <div class="row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Date de reservation </label>
+                  <input class=" form-control" placeholder="" type="date" name="reservation"
+                    #dres="ngModel"
+                    required
+                    [class.is-invalid]="dres.touched &&( dres.invalid || currentReservation.dateDebut<currentReservation.dateReservation)"  
+                    [(ngModel)]="currentReservation.dateReservation" />
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label for="#datedeb"> Debut du sejour </label>
+                  <input class=" form-control" placeholder="" type="date" name="debut"
+                    #ddeb="ngModel"
+                    required
+                    [class.is-invalid]="ddeb.touched && ddeb.invalid"  
+                    [(ngModel)]="currentReservation.dateDebut" />
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label for="#datefin"> Fin du Sejour </label>
+                  <input class=" form-control" placeholder="" type="date" name="fin"
+                    #dfin="ngModel"
+                    required
+                    [class.is-invalid]="dfin.touched && (currentReservation.dateFin<currentReservation.dateDebut || dfin.invalid)"  
+                    [(ngModel)]="currentReservation.dateFin" />
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class="form-group">
+                  <label for="">Nombre de Personne</label>
+                  <input class=" form-control" placeholder="" type="number" name="nbr"
+                    #pnbr="ngModel"
+                    required
+                    [class.is-invalid]="pnbr.touched && pnbr.invalid"  
+                    [(ngModel)]="currentReservation.nbrPerson" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addReservation()" data-bs-dismiss="modal">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>

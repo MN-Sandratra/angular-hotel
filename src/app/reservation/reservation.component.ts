@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { async } from '@angular/core/testing';
+import { NgForm } from '@angular/forms';
 import { faAdd, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +10,7 @@ import { Reservation } from '../models/reservation';
 import { Room } from '../models/room';
 import { ClientService } from '../services/client.service';
 import { ReservationService } from '../services/reservation.service';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-reservation',
@@ -24,15 +26,17 @@ export class ReservationComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtElement:DataTableDirective | undefined;
 
-  constructor(private apiReservation:ReservationService,private toastr:ToastrService,private apiClient:ClientService) { }
+  constructor(private apiReservation:ReservationService,private toastr:ToastrService,private apiClient:ClientService,private apiRoom:RoomService) { }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
   Reservations:Reservation[]=[];
+  Room:Room[]=[];
   Clients:Client[]=[];
   currentReservation:Reservation=new Reservation();
   currentAction:String="Ajouter"
+  @ViewChild("resForm") form:NgForm | undefined;
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -63,9 +67,11 @@ export class ReservationComponent implements OnInit {
       processing: true
     };
     this.initData();
+    this.currentReservation.client=new Client();
+    this.currentReservation.room=new Room();
   }
   ngAfterViewInit(): void {
-    setTimeout(()=>this.dtTrigger.next(),100);
+    setTimeout(()=>this.dtTrigger.next(),500);
   }
 
   rerender(){
@@ -87,10 +93,12 @@ export class ReservationComponent implements OnInit {
       }
     )
   }
-  getReservationById(id:number){
+  getMyReservationById(id:number){
     this.apiReservation.getReservationById(id).subscribe(
       data=>{
         this.currentReservation=data;
+        this.currentReservation.client=this.getClientById(this.currentReservation.client.id)[0];
+        console.log(this.currentReservation);
       },err=>{
         console.error("Une erreur s'est produite");
       }
@@ -106,6 +114,20 @@ export class ReservationComponent implements OnInit {
       }
     )
   }
+  getClientById(id:any){
+    let res=this.Clients.filter(x=>x.id==id);
+    console.log(res);
+    return res;
+  }
+  getRoom(){
+    this.apiRoom.getAllRoom().subscribe(
+      data=>{
+        this.Room=data;
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
   getUsableClient=()=>{
     return Promise.resolve(this.getClient())
   }
@@ -117,6 +139,7 @@ export class ReservationComponent implements OnInit {
     try {
       await this.getUsableClient();
       await this.getUsableReservation();
+      this.getRoom();
     } catch (error) {
       console.log(error);
     }
@@ -124,25 +147,43 @@ export class ReservationComponent implements OnInit {
   getClientName(client:Client){
     let data=this.Clients.filter(x=>x.id===client.id);
     return data[0].person.firstName +" "+data[0].person.lastName;
-    // return res;
   }
    //bouton
-   modifierReservation(client:any){
+   modifierReservation(res:any){
     this.currentAction="Modifier";
-    this.getReservationById(client.id);
+    this.currentReservation=res;
+    this.currentReservation.client=this.getClientById(this.currentReservation.client.id)[0]
+    this.currentReservation.dateDebut=(""+this.currentReservation.dateDebut).split('T')[0]
+    this.currentReservation.dateReservation=(""+this.currentReservation.dateReservation).split('T')[0]
+    this.currentReservation.dateFin=(""+this.currentReservation.dateFin).split('T')[0]
+    //this.getMyReservationById(res.id);
   }
   ajoutReservation(){
     this.currentAction="Ajouter";
+    this.form?.resetForm();
     this.currentReservation=new Reservation();
     this.initialistaion();
   }
-  supprimerReservqtion(res:any){
-    this.getReservationById(res.id);
+  supprimerReservation(res:any){
+    console.log(res);
+    this.getMyReservationById(res.id);
   }
 
   //action with api
   updateReservation=():void=>{
-    this.apiReservation.updateReservation(this.currentReservation).subscribe(
+    if(!this.validation() || this.form?.invalid || this.currentReservation.client.id<0 || this.currentReservation.room.id<0){
+      this.toastr.error("Remplisser le champs correctement","Erreur")  
+    }else{
+    let reservationToUpdate={
+      "id":this.currentReservation.id,
+      "clientId": this.currentReservation.client.id,
+      "roomId": this.currentReservation.room.id,
+      "dateReservation":this.currentReservation.dateReservation,
+      "dateDebut":this.currentReservation.dateDebut,
+      "dateFin": this.currentReservation.dateFin,
+      "nbrPerson": this.currentReservation.nbrPerson,
+    }
+    this.apiReservation.updateReservation(reservationToUpdate).subscribe(
       data=>{
         this.getAllReservation();
         this.toastr.success("Modification de la reservation reussit","Succes");
@@ -153,9 +194,29 @@ export class ReservationComponent implements OnInit {
       }
     )
   }
+  }
+  validation(){
+    let res=true;
+    if(this.currentReservation.dateDebut<this.currentReservation.dateReservation || this.currentReservation.dateDebut>this.currentReservation.dateFin)
+      res=false;
+    return res;
+  }
 
   addReservation=()=>{
-    this.apiReservation.createReservation(this.currentReservation).subscribe(
+    let val=new Client();
+    let rom=new Room()
+    if(!this.validation() || this.form?.invalid || this.currentReservation.client== val|| this.currentReservation.room==rom){
+      this.toastr.error("Remplisser le champs correctement","Erreur")  
+    }else{
+    let reservationToAdd={
+    "clientId": this.currentReservation.client.id,
+    "roomId": this.currentReservation.room.id,
+    "dateReservation":this.currentReservation.dateReservation,
+    "dateDebut":this.currentReservation.dateDebut,
+    "dateFin": this.currentReservation.dateFin,
+    "nbrPerson": this.currentReservation.nbrPerson,
+  }
+    this.apiReservation.createReservation(reservationToAdd).subscribe(
       data=>{
         this.getAllReservation();
         this.rerender();
@@ -164,6 +225,7 @@ export class ReservationComponent implements OnInit {
         console.error(err);
       }
     )
+  }
   }
   
   deleteReservation(){

@@ -6,7 +6,9 @@
             Relaxer vous dans nos locaux</h3>
     </div>
 </div>
-<app-description [inverse]=true [descri]=Restaurant></app-description>
+<div id="about">
+    <app-description [inverse]=true [descri]=Restaurant></app-description>
+</div>
 <div class="features_room">
     <div class="container">
         <div class="row">
@@ -18,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="rooms_here">
+    <div class="rooms_here" id="category">
         <app-frontcategory *ngFor="let item of categories" [categorie]="item"></app-frontcategory>
     </div>
 </div>

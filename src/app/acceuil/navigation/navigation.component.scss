@@ -1,3 +1,4 @@
+@import "../../styles/logistique.scss";
 .navbar-nav a{
     color:#fff;
 }
@@ -17,6 +18,12 @@
 .nav-transparent.nav-black{
     background-color: black!important;
 }
+.nav-transparent.nav-blacks{
+    background-color: black!important;
+}
+.modal.show .modal-dialog {
+    transform: translate(0, 10%);
+}
 .navbar-nav.navbar-right{
     margin: 15px 0;
 
@@ -26,4 +33,17 @@
 }
 .navbar-toggler{
     color: #fff;
+}
+
+p{
+    color: #4D4D4D;
+}
+
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
+    color: #0098f0,
+}
+
+.inscription{
+    color: lightseagreen;
+    cursor: pointer;
 }

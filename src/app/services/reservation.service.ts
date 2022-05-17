@@ -20,7 +20,7 @@ export class ReservationService {
     return this.http.get(this.baseUrl+"/api/reservations/"+id);
   }
 
-  createReservation(reservation:Reservation):Observable<any>{
+  createReservation(reservation:any):Observable<any>{
     return this.http.post(this.baseUrl+"/api/reservations/",reservation);
   }
 

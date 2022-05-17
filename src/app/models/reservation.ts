@@ -5,8 +5,8 @@ export class Reservation {
     id!:number;
     client!:Client;
     room !:Room;
-    dateReservation !:Date;
-    dateDebut !:Date;
-    dateFin !:Date;
+    dateReservation !:any;
+    dateDebut !:any;
+    dateFin !:any;
     nbrPerson !:number;
 }
